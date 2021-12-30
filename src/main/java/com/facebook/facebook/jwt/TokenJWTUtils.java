@@ -24,10 +24,13 @@ public class TokenJWTUtils {
         .compact();
   }
 
-  public static String generateJwtByTime(String id,Long time) {
+  public static String generateJwtByTime(String id,String emailOrPhone,String type,Long time,String code) {
     long expirationTime = time;
     return Jwts.builder()
             .setId(id)
+            .setSubject(emailOrPhone)
+            .setIssuer(type)
+            .setAudience(code)
             .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
             .signWith(SignatureAlgorithm.HS512, SECRET)
             .compact();

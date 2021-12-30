@@ -11,5 +11,5 @@ public class SendCodeModel {
     private String emailOrPhone;
     private Integer typeSendCode;
     private String topic;
-
+    private String code;
 }

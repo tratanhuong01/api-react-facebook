@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -17,6 +18,11 @@ public class UserRelationshipController {
     UserRelationshipService userRelationshipService;
     //
 
+    @GetMapping("/check/relationship")
+    public UserRelationship checkRelationship(@RequestParam Long idUserProfile,@RequestParam Long idUserMain) {
+        return userRelationshipService.checkRelationship(idUserProfile,idUserMain);
+    }
+
     @PostMapping("")
     public UserRelationship addUserRelationship(@RequestBody UserRelationship userRelationship) {
         userRelationship.setTimeCreated(new Timestamp(new Date().getTime()));
@@ -24,14 +30,19 @@ public class UserRelationshipController {
     }
 
     @PutMapping("")
-    public UserRelationship updateUserRelationship(@RequestBody UserRelationship userRelationship) {
-        return userRelationshipService.updateUserRelationship(userRelationship);
+    public void updateUserRelationship(@RequestParam Long idUserProfile,@RequestParam Long idUserMain,
+                                                   @RequestParam Integer status) {
+        userRelationshipService.updateUserRelationship(status,idUserProfile,idUserMain);
     }
 
     @DeleteMapping("")
-    public void deleteUserRelationship(@RequestBody UserRelationship userRelationship) {
-        userRelationshipService.deleteUserRelationship(userRelationship);
+    public void deleteUserRelationship(@RequestParam Long idUserProfile,@RequestParam Long idUserMain) {
+        userRelationshipService.deleteUserRelationship(idUserProfile,idUserMain);
     }
 
-
+    @GetMapping("/friends")
+    public List<UserRelationship> getFriendByUserProfile(@RequestParam Long idUserMain,@RequestParam Integer status,
+                                                         @RequestParam Integer limit, @RequestParam Integer offset) {
+        return userRelationshipService.getFriendByUserProfile(idUserMain,status,offset,limit);
+    }
 }

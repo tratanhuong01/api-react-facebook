@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -26,6 +27,10 @@ public class PostsService {
 
     public void deletePost(Posts posts) {
         postsRepository.delete(posts);
+    }
+
+    public List<Posts> getPostsByIdUser(Long idUser,Integer offset,Integer limit) {
+        return postsRepository.getPostsByIdUser(idUser);
     }
 
 }

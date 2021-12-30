@@ -3,6 +3,8 @@ package com.facebook.facebook.posts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/posts")
@@ -14,7 +16,11 @@ public class PostsController {
     PostsService postsService;
     //
 
-
+    @GetMapping("")
+    public List<Posts> getPostsByIdUser(@RequestParam Long idUser,@RequestParam(required = false) Integer offset,
+                                        @RequestParam(required = false) Integer limit) {
+        return postsService.getPostsByIdUser(idUser,offset,limit);
+    }
 
     @PostMapping("")
     public Posts addPost(@RequestBody Posts posts) {

@@ -23,16 +23,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .authorizeRequests()
         .antMatchers(HttpMethod.GET, "/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js").permitAll()
 
-        .antMatchers(HttpMethod.POST, "/").permitAll()
-
+        .antMatchers(HttpMethod.POST, "/users/generate/jwt","/users/check/register","/users/check/login",
+                "/","/users","/send/code/email","/send/code/phone","/users/generate/login/id/jwt","/users/check/login").permitAll()
 
         .antMatchers(HttpMethod.DELETE,"/").permitAll()
 
 
-        .antMatchers(HttpMethod.PUT,"/").permitAll()
+        .antMatchers(HttpMethod.PUT,"/users").permitAll()
 
 
-        .antMatchers(HttpMethod.GET, "/").permitAll()
+        .antMatchers(HttpMethod.GET, "/users").permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)

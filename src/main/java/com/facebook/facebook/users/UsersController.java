@@ -1,9 +1,10 @@
 package com.facebook.facebook.users;
 
+import com.facebook.facebook.dto.AccountLogin;
+import com.facebook.facebook.dto.DataJWT;
+import com.facebook.facebook.dto.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @CrossOrigin("*")
@@ -17,8 +18,8 @@ public class UsersController {
     //
 
     @GetMapping("")
-    public List<Users> getAllUsers() {
-        return usersService.getAllUsers();
+    public Users getUserByIdOrToken(@RequestParam(required = false) Long id,@RequestParam(required = false) String token) {
+        return usersService.getUserByIdOrToken(id,token);
     }
 
     @PostMapping("")
@@ -34,6 +35,26 @@ public class UsersController {
     @DeleteMapping("")
     public void deleteUser(@RequestBody Users users) {
         usersService.deleteUser(users);
+    }
+
+    @PostMapping("/generate/jwt")
+    public String generateJWT(@RequestBody DataJWT dataJWT) {
+        return usersService.generateJWT(dataJWT);
+    }
+
+    @PostMapping("/generate/login/id/jwt")
+    public UserDetail generateLoginByIdJWT(@RequestParam Long id) {
+        return usersService.generateLoginByIdJWT(id);
+    }
+
+    @PostMapping("/check/register")
+    public Users checkRegister(@RequestParam String emailOrPhone) {
+        return usersService.checkRegister(emailOrPhone);
+    }
+
+    @PostMapping("/check/login")
+    public UserDetail checkLogin(@RequestBody AccountLogin accountLogin) {
+        return usersService.checkLogin(accountLogin);
     }
 
 }

@@ -31,10 +31,13 @@ public class Users {
     String phone;
 
     @Column
+    String password;
+
+    @Column
     String gender;
 
     @Column
-    Date birthday;
+    Timestamp birthday;
 
     @Column
     String avatar;
@@ -56,6 +59,9 @@ public class Users {
 
     @Column
     Integer isOnline;
+
+    @Column
+    Integer isDark;
 
     @Column
     Timestamp timeCreated;
