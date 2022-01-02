@@ -1,5 +1,6 @@
 package com.facebook.facebook.posts;
 
+import com.facebook.facebook.dto.PostDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +17,19 @@ public class PostsController {
     PostsService postsService;
     //
 
+    @GetMapping("/{id}")
+    public PostDetail getPostById(@PathVariable Long id) {
+        return postsService.getPostById(id);
+    }
+
+    @GetMapping("/home/{id}")
+    public List<PostDetail> getPostHome(@PathVariable Long id) {
+        return postsService.getPostHome(id);
+    }
+
     @GetMapping("")
-    public List<Posts> getPostsByIdUser(@RequestParam Long idUser,@RequestParam(required = false) Integer offset,
-                                        @RequestParam(required = false) Integer limit) {
+    public List<PostDetail> getPostsByIdUser(@RequestParam Long idUser, @RequestParam(required = false) Integer offset,
+                                             @RequestParam(required = false) Integer limit) {
         return postsService.getPostsByIdUser(idUser,offset,limit);
     }
 
@@ -36,6 +47,7 @@ public class PostsController {
     public void deletePost(@RequestBody Posts posts) {
         postsService.deletePost(posts);
     }
+
 
 
 }

@@ -3,6 +3,9 @@ package com.facebook.facebook.image_video_post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 @Service
 
 public class ImageVideoPostService {
@@ -13,6 +16,7 @@ public class ImageVideoPostService {
     //
 
     public ImageVideoPost addImageVideoPost(ImageVideoPost imageVideoPost) {
+        imageVideoPost.setTimeCreated(new Timestamp(new Date().getTime()));
         return imageVideoPostRepository.save(imageVideoPost);
     }
 

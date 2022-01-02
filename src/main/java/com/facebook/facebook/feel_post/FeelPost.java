@@ -19,13 +19,16 @@ public class FeelPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_post")
     Posts postFeelPost;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id_user")
     Users userFeelPost;
+
+    @Column
+    String content;
 
     @Column
     Integer typeFeelPost;

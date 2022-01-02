@@ -1,9 +1,17 @@
 package com.facebook.facebook.posts;
 
+import com.facebook.facebook.comment_post.CommentPost;
+import com.facebook.facebook.comment_post.CommentPostRepository;
+import com.facebook.facebook.dto.CommentDetail;
+import com.facebook.facebook.dto.PostDetail;
+import com.facebook.facebook.feel_post.FeelPostRepository;
+import com.facebook.facebook.image_video_post.ImageVideoPostRepository;
+import com.facebook.facebook.tags_post.TagsPostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +22,14 @@ public class PostsService {
     //
     @Autowired
     PostsRepository postsRepository;
+    @Autowired
+    ImageVideoPostRepository imageVideoPostRepository;
+    @Autowired
+    FeelPostRepository feelPostRepository;
+    @Autowired
+    CommentPostRepository commentPostRepository;
+    @Autowired
+    TagsPostRepository tagsPostRepository;
     //
 
     public Posts addPost(Posts posts) {
@@ -29,8 +45,51 @@ public class PostsService {
         postsRepository.delete(posts);
     }
 
-    public List<Posts> getPostsByIdUser(Long idUser,Integer offset,Integer limit) {
-        return postsRepository.getPostsByIdUser(idUser);
+    public List<PostDetail> getPostsByIdUser(Long idUser, Integer offset, Integer limit) {
+        List<Posts> postsList = postsRepository.getPostsByIdUser(idUser);
+        List<PostDetail> postDetailList = new ArrayList<>();
+        for (Posts post : postsList) {
+            postDetailList.add(returnPostDetail(post));
+        }
+        return postDetailList;
+    }
+
+    public PostDetail returnPostDetail(Posts post) {
+        PostDetail postDetail = new PostDetail();
+        postDetail.setPost(post);
+        postDetail.setImageVideoPostList(imageVideoPostRepository.getImageVideoPostByIdPost(post.getId()));
+        postDetail.setCommentLength(commentPostRepository.getCountCommentPostByIdPost(post.getId()));
+        postDetail.setFeelPostList(feelPostRepository.getFeelPostByIdPost(post.getId()));
+        postDetail.setCommentDetailList(returnListCommentDetail(post.getId()));
+        postDetail.setTagPostList(tagsPostRepository.getTagsPostByIdPost(post.getId()));
+        //
+        return postDetail;
+    }
+
+    public List<CommentDetail> returnListCommentDetail(Long idPost) {
+        List<CommentPost> commentPostList = commentPostRepository.getListCommentPostLevel1(idPost,0,2);
+        List<CommentDetail> commentDetailList = new ArrayList<>();
+        for (CommentPost commentPost: commentPostList) {
+            CommentDetail commentDetail = new CommentDetail();
+            commentDetail.setCommentPostLevel1(commentPost);
+            commentDetail.setCommentPostLevel2List(
+                    commentPostRepository.getListCommentPostLevel2(commentPost.getId(),0,2));
+            commentDetailList.add(commentDetail);
+        }
+        return commentDetailList;
+    }
+
+    public PostDetail getPostById(Long id) {
+        return returnPostDetail(postsRepository.getPostById(id));
+    }
+
+    public List<PostDetail> getPostHome(Long id) {
+        List<Posts> postsList = postsRepository.getPostHome(id);
+        List<PostDetail> postDetailList = new ArrayList<>();
+        for (Posts post : postsList) {
+            postDetailList.add(returnPostDetail(post));
+        }
+        return postDetailList;
     }
 
 }

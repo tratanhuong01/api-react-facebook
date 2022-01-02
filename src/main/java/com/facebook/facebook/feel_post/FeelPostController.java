@@ -32,4 +32,9 @@ public class FeelPostController {
         feelPostService.deleteFeelPost(feelPost);
     }
 
+    @GetMapping("/check")
+    public FeelPost checkUserIsFeelPost(@RequestParam Long idPost,@RequestParam Long idUser) {
+        return feelPostService.checkUserIsFeelPost(idPost, idUser);
+    }
+
 }

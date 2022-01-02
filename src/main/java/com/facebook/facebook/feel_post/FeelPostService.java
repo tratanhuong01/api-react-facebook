@@ -28,4 +28,8 @@ public class FeelPostService {
         feelPostRepository.delete(feelPost);
     }
 
+    public FeelPost checkUserIsFeelPost(Long idPost,Long idUser) {
+        return feelPostRepository.checkUserIsFeelPost(idPost, idUser);
+    }
+
 }

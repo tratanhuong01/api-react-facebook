@@ -20,7 +20,7 @@ public class Posts {
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    Users postUser;
+    Users userPost;
 
     @Column()
     String content;

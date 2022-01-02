@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "image_video_post")
@@ -20,5 +21,14 @@ public class ImageVideoPost {
     @ManyToOne
     @JoinColumn(name = "id_post")
     Posts postImageVideoPost;
+
+    @Column
+    String src;
+
+    @Column
+    String typeImageVideoPost;
+
+    @Column
+    Timestamp timeCreated;
 
 }
