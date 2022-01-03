@@ -6,6 +6,8 @@ import com.facebook.facebook.dto.UserDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/users")
@@ -55,6 +57,12 @@ public class UsersController {
     @PostMapping("/check/login")
     public UserDetail checkLogin(@RequestBody AccountLogin accountLogin) {
         return usersService.checkLogin(accountLogin);
+    }
+
+    @GetMapping("/online")
+    public List<Users> getUserFriendOnlineByIdUser(@RequestParam Long idUser,@RequestParam Integer offset,
+                                                   @RequestParam Integer limit) {
+        return usersService.getUserFriendOnlineByIdUser(idUser,offset,limit);
     }
 
 }

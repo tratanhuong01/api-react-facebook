@@ -27,7 +27,8 @@ public class UploadFileController {
     public ResponseEntity<Map> updateImage(@RequestParam(required = false) String id,
                                            @RequestParam(required = false) String typeFile,
     @RequestParam(required = false) MultipartFile multipartFile,
-    @RequestParam(required = false) String publicId) throws IOException {
+    @RequestParam(required = false) String publicId,
+    @RequestParam(required = false) String base64) throws IOException {
         UploadFile uploadFile = new UploadFile();
         uploadFile.setId(id);
         uploadFile.setMultipartFile(multipartFile);
@@ -36,5 +37,20 @@ public class UploadFileController {
         Map result = uploadFileService.uploadFile(uploadFile);
         return new ResponseEntity(result, HttpStatus.OK);
     }
+
+    @PostMapping("uploadBase64")
+    public ResponseEntity<Map> uploadBase64(@RequestParam(required = false) String id,
+                                           @RequestParam(required = false) String typeFile,
+                                           @RequestParam(required = false) String publicId,
+                                           @RequestParam(required = false) String base64) throws IOException {
+        UploadBase64 uploadBase64 = new UploadBase64();
+        uploadBase64.setId(id);
+        uploadBase64.setBase64(base64);
+        uploadBase64.setTypeFile(typeFile);
+        uploadBase64.setPublicId(publicId);
+        Map result = uploadFileService.uploadBase64(uploadBase64);
+        return new ResponseEntity(result, HttpStatus.OK);
+    }
+
 
 }

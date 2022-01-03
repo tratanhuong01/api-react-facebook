@@ -37,6 +37,14 @@ public class UploadFileService {
         return result;
     }
 
+    public Map uploadBase64(UploadBase64 uploadBase64) throws IOException {
+        Map result = cloudinary.uploader().upload(uploadBase64.getBase64(), ObjectUtils.asMap(
+                "public_id", uploadBase64.getPublicId() + uploadBase64.getId(),
+                "overwrite", true,
+                "resource_type", uploadBase64.getTypeFile()
+        ));
+        return result;
+    }
 
     private File convert(MultipartFile multipartFile) throws IOException {
         File file = new File(multipartFile.getOriginalFilename());

@@ -17,4 +17,9 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
 
     @Query(value = "SELECT * FROM users WHERE (email = ?1 OR phone = ?1 ) AND password = ?2 ",nativeQuery = true)
     Users checkLogin(String emailOrPhone,String password);
+
+    @Query(value = "SELECT users.* FROM users INNER JOIN user_relationship ON users.id = user_relationship.id_user " +
+            " WHERE user_relationship.id_friend = ?1 AND users.is_online = 1 OFFSET ?2 LIMIT ?3 ",nativeQuery = true)
+    List<Users> getUserFriendOnlineByIdUser(Long idUser,Integer offset,Integer limit);
+
 }

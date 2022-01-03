@@ -75,4 +75,8 @@ public class UsersService {
         return userDetail;
     }
 
+    public List<Users> getUserFriendOnlineByIdUser(Long idUser,Integer offset,Integer limit) {
+        return usersRepository.getUserFriendOnlineByIdUser(idUser,offset,limit);
+    }
+
 }
