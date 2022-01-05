@@ -28,6 +28,9 @@ public class FeelComment {
     Users userFeelComment;
 
     @Column
+    String content;
+
+    @Column
     Integer typeFeelComment;
 
     @Column

@@ -28,4 +28,8 @@ public class FeelCommentService {
         feelCommentRepository.delete(feelComment);
     }
 
+    public FeelComment checkUserFeelComment(Long idUser,Long idCommentPost) {
+        return feelCommentRepository.checkUserFeelComment(idUser, idCommentPost);
+    }
+
 }

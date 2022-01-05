@@ -33,4 +33,9 @@ public class FeelCommentController {
         feelCommentService.deleteFeelComment(feelComment);
     }
 
+    @GetMapping("/check")
+    public FeelComment checkUserFeelComment(@RequestParam Long idUser,@RequestParam Long idCommentPost) {
+        return feelCommentService.checkUserFeelComment(idUser, idCommentPost);
+    }
+
 }
