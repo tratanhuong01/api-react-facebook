@@ -17,6 +17,7 @@ public class PostDetail {
     Posts post;
     List<FeelPost> feelPostList;
     Integer commentLength;
+    Integer commentLevel1Length;
     List<ImageVideoPost> imageVideoPostList;
     List<CommentDetail> commentDetailList;
     List<TagsPost> tagPostList;

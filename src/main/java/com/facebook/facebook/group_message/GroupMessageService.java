@@ -28,4 +28,8 @@ public class GroupMessageService {
         groupMessageRepository.delete(groupMessage);
     }
 
+    public GroupMessage getGroupMessage(String queryGroupMessage) {
+        return groupMessageRepository.getGroupMessage(queryGroupMessage);
+    }
+
 }

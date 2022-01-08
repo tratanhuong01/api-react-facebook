@@ -23,8 +23,9 @@ public class PostsController {
     }
 
     @GetMapping("/home/{id}")
-    public List<PostDetail> getPostHome(@PathVariable Long id) {
-        return postsService.getPostHome(id);
+    public List<PostDetail> getPostHome(@PathVariable Long id,@RequestParam(required = false) Integer limit,
+                                        @RequestParam(required = false) Integer offset) {
+        return postsService.getPostHome(id,offset,limit);
     }
 
     @GetMapping("")

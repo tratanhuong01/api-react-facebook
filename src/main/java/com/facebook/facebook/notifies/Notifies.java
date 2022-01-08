@@ -1,4 +1,4 @@
-package com.facebook.facebook.group_message;
+package com.facebook.facebook.notifies;
 
 import com.facebook.facebook.users.Users;
 import lombok.Getter;
@@ -8,11 +8,11 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "group_message")
+@Table(name = "notifies")
 @Getter
 @Setter
 
-public class GroupMessage {
+public class Notifies {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,22 +20,16 @@ public class GroupMessage {
 
     @ManyToOne
     @JoinColumn(name = "id_user")
-    Users userGroupMessage;
+    Users userNotify;
 
     @Column
-    String color;
+    String content;
 
     @Column
-    String theme;
+    String dataNotify;
 
     @Column
-    String emoji;
-
-    @Column
-    String nameGroupMessage;
-
-    @Column
-    String queryGroupMessage;
+    Integer typeNotify;
 
     @Column
     Timestamp timeCreated;

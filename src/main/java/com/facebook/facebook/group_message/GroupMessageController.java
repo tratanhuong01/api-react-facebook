@@ -1,5 +1,6 @@
 package com.facebook.facebook.group_message;
 
+import com.facebook.facebook.dto.StringPass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +28,11 @@ public class GroupMessageController {
     @DeleteMapping("")
     public void deleteGroupMessage(@RequestBody GroupMessage groupMessage) {
         groupMessageService.deleteGroupMessage(groupMessage);
+    }
+
+    @PostMapping("/check")
+    public GroupMessage getGroupMessage(@RequestBody StringPass stringPass) {
+        return groupMessageService.getGroupMessage(stringPass.getString());
     }
 
 }

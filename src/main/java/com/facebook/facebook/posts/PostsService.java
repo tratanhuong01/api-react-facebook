@@ -46,7 +46,7 @@ public class PostsService {
     }
 
     public List<PostDetail> getPostsByIdUser(Long idUser, Integer offset, Integer limit) {
-        List<Posts> postsList = postsRepository.getPostsByIdUser(idUser);
+        List<Posts> postsList = postsRepository.getPostsByIdUser(idUser,offset,limit);
         List<PostDetail> postDetailList = new ArrayList<>();
         for (Posts post : postsList) {
             postDetailList.add(returnPostDetail(post));
@@ -61,6 +61,7 @@ public class PostsService {
         postDetail.setCommentLength(commentPostRepository.getCountCommentPostByIdPost(post.getId()));
         postDetail.setFeelPostList(feelPostRepository.getFeelPostByIdPost(post.getId()));
         postDetail.setCommentDetailList(returnListCommentDetail(post.getId()));
+        postDetail.setCommentLevel1Length(commentPostRepository.getCountCommentPostLevel1ByIdPost(post.getId()));
         postDetail.setTagPostList(tagsPostRepository.getTagsPostByIdPost(post.getId()));
         //
         return postDetail;
@@ -74,6 +75,7 @@ public class PostsService {
             commentDetail.setCommentPostLevel1(commentPost);
             commentDetail.setCommentPostLevel2List(
                     commentPostRepository.getListCommentPostLevel2(commentPost.getId(),0,2));
+            commentDetail.setCommentLevel2Length(commentPostRepository.getCommentPostLevel2Length(commentPost.getId()));
             commentDetailList.add(commentDetail);
         }
         return commentDetailList;
@@ -83,8 +85,8 @@ public class PostsService {
         return returnPostDetail(postsRepository.getPostById(id));
     }
 
-    public List<PostDetail> getPostHome(Long id) {
-        List<Posts> postsList = postsRepository.getPostHome(id);
+    public List<PostDetail> getPostHome(Long id,Integer offset,Integer limit) {
+        List<Posts> postsList = postsRepository.getPostHome(id,offset,limit);
         List<PostDetail> postDetailList = new ArrayList<>();
         for (Posts post : postsList) {
             postDetailList.add(returnPostDetail(post));

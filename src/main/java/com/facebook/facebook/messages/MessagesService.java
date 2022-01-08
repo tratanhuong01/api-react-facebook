@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -26,6 +27,10 @@ public class MessagesService {
 
     public void deleteMessage(Messages messages) {
         messagesRepository.delete(messages);
+    }
+
+    public List<Messages> getMessageByIdGroupMessage(Long idGroupMessage) {
+        return messagesRepository.getMessageByIdGroupMessage(idGroupMessage);
     }
 
 }
