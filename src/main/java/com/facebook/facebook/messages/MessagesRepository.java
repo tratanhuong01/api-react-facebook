@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface MessagesRepository extends JpaRepository<Messages,Long> {
 
-    @Query(value = "SELECT * FROM messages WHERE id_group_message = ?1 ORDER BY time_created DESC",nativeQuery = true)
+    @Query(value = "SELECT * FROM messages WHERE id_group_message = ?1 ORDER BY time_created ASC",nativeQuery = true)
     List<Messages> getMessageByIdGroupMessage(Long idGroupMessage);
 
 }
