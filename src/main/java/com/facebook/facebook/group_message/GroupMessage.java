@@ -38,6 +38,9 @@ public class GroupMessage {
     String queryGroupMessage;
 
     @Column
+    Integer typeGroupMessage;
+
+    @Column
     Timestamp timeCreated;
 
 }

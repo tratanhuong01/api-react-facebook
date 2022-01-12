@@ -1,5 +1,6 @@
 package com.facebook.facebook.comment_post;
 
+import com.facebook.facebook.dto.CommentChild;
 import com.facebook.facebook.dto.CommentDetail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,8 +43,8 @@ public class CommentPostController {
     }
 
     @GetMapping("/level2")
-    public List<CommentPost> getCommentLevel2ByIdCommentReply(@RequestParam Long idComment,@RequestParam Integer offset,
-                                                              @RequestParam Integer limit) {
+    public List<CommentChild> getCommentLevel2ByIdCommentReply(@RequestParam Long idComment, @RequestParam Integer offset,
+                                                               @RequestParam Integer limit) {
         return commentPostService.getCommentLevel2ByIdCommentReply(idComment, offset, limit);
     }
 

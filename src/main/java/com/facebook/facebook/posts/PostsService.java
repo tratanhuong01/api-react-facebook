@@ -2,8 +2,10 @@ package com.facebook.facebook.posts;
 
 import com.facebook.facebook.comment_post.CommentPost;
 import com.facebook.facebook.comment_post.CommentPostRepository;
+import com.facebook.facebook.dto.CommentChild;
 import com.facebook.facebook.dto.CommentDetail;
 import com.facebook.facebook.dto.PostDetail;
+import com.facebook.facebook.feel_comment.FeelCommentRepository;
 import com.facebook.facebook.feel_post.FeelPostRepository;
 import com.facebook.facebook.image_video_post.ImageVideoPostRepository;
 import com.facebook.facebook.tags_post.TagsPostRepository;
@@ -30,6 +32,8 @@ public class PostsService {
     CommentPostRepository commentPostRepository;
     @Autowired
     TagsPostRepository tagsPostRepository;
+    @Autowired
+    FeelCommentRepository feelCommentRepository;
     //
 
     public Posts addPost(Posts posts) {
@@ -72,13 +76,29 @@ public class PostsService {
         List<CommentDetail> commentDetailList = new ArrayList<>();
         for (CommentPost commentPost: commentPostList) {
             CommentDetail commentDetail = new CommentDetail();
-            commentDetail.setCommentPostLevel1(commentPost);
+            commentDetail.setCommentPostLevel1(returnCommentChild(commentPost));
             commentDetail.setCommentPostLevel2List(
-                    commentPostRepository.getListCommentPostLevel2(commentPost.getId(),0,2));
+                    returnListCommentChild(commentPostRepository.getListCommentPostLevel2(commentPost.getId(),
+                            0,2)));
             commentDetail.setCommentLevel2Length(commentPostRepository.getCommentPostLevel2Length(commentPost.getId()));
             commentDetailList.add(commentDetail);
         }
         return commentDetailList;
+    }
+
+    public List<CommentChild> returnListCommentChild(List<CommentPost> commentPostList) {
+        List<CommentChild> commentChildList = new ArrayList<>();
+        for (CommentPost commentPost : commentPostList) {
+            commentChildList.add(returnCommentChild(commentPost));
+        }
+        return commentChildList;
+    }
+
+    public CommentChild returnCommentChild(CommentPost commentPost) {
+        CommentChild commentChild = new CommentChild();
+        commentChild.setCommentPost(commentPost);
+        commentChild.setFeelCommentList(feelCommentRepository.getFeelCommentByIdCommentPost(commentPost.getId()));
+        return commentChild;
     }
 
     public PostDetail getPostById(Long id) {

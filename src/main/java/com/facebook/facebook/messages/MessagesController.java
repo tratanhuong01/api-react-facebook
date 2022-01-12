@@ -1,5 +1,7 @@
 package com.facebook.facebook.messages;
 
+import com.facebook.facebook.dto.MessageByGroup;
+import com.facebook.facebook.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,21 @@ public class MessagesController {
     }
 
     @GetMapping("")
-    public List<Messages> getMessageByIdGroupMessage(@RequestParam Long idGroupMessage) {
-        return messagesService.getMessageByIdGroupMessage(idGroupMessage);
+    public List<Messages> getMessageByIdGroupMessage(@RequestParam Long idGroupMessage,@RequestParam Integer offset,
+                                                     @RequestParam Integer limit) {
+        return messagesService.getMessageByIdGroupMessage(idGroupMessage,offset,limit);
     }
+
+    @GetMapping("/getList")
+    public List<MessageByGroup> getMessageByGroupByIdUser(@RequestParam Long idUser,@RequestParam Integer offset,
+                                                          @RequestParam Integer limit) {
+        return messagesService.getMessageByGroupByIdUser(idUser,offset,limit);
+    }
+
+    @GetMapping("/getUser")
+    public List<Users> getUserByGroupMessage(@RequestParam Long idUser,@RequestParam String groupMessage) {
+        return messagesService.getUserByGroupMessage(idUser,groupMessage);
+    }
+
 
 }

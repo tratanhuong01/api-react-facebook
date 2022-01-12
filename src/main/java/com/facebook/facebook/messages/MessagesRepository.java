@@ -10,7 +10,16 @@ import java.util.List;
 
 public interface MessagesRepository extends JpaRepository<Messages,Long> {
 
-    @Query(value = "SELECT * FROM messages WHERE id_group_message = ?1 ORDER BY time_created ASC",nativeQuery = true)
-    List<Messages> getMessageByIdGroupMessage(Long idGroupMessage);
+    @Query(value = "SELECT * FROM messages WHERE id_group_message = ?1 ORDER BY time_created ASC " +
+            " OFFSET ?2 LIMIT ?3 ",nativeQuery = true)
+    List<Messages> getMessageByIdGroupMessage(Long idGroupMessage,Integer offset,Integer limit);
+
+    @Query(value = "SELECT DISTINCT messages.id_group_message FROM messages WHERE messages.id_user = ?1 " +
+            " OFFSET ?2 LIMIT ?3 ",nativeQuery = true)
+    List<Long> getDistinctIDGroupMessageByIdUser(Long idUser,Integer offset,Integer limit);
+
+    @Query(value = "SELECT * FROM messages WHERE id_group_message = ?1 ORDER BY time_created DESC " +
+            "OFFSET 0 LIMIT 1 ",nativeQuery = true)
+    Messages getMessageByGroupLimitOne(Long idGroupMessage);
 
 }
