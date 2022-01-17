@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @Service
 
@@ -26,6 +27,19 @@ public class ImageVideoPostService {
 
     public void deleteImageVideoPost(ImageVideoPost imageVideoPost) {
         imageVideoPostRepository.delete(imageVideoPost);
+    }
+
+    public List<ImageVideoPost> getImageVideoPostByIdUser(Long idUser,Integer offset,Integer limit,Integer type) {
+        if (offset == null || limit == null)
+            if (type == -1)
+                return imageVideoPostRepository.getImageVideoPostByIdUser(idUser);
+            else
+                return imageVideoPostRepository.getImageVideoPostByIdUser(idUser,type);
+        else
+            if (type == -1)
+                return imageVideoPostRepository.getImageVideoPostByIdUserLimit(idUser, offset, limit);
+            else
+                return imageVideoPostRepository.getImageVideoPostByIdUserLimit(idUser, type,offset, limit);
     }
 
 }

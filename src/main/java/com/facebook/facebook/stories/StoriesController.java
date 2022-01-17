@@ -38,4 +38,10 @@ public class StoriesController {
         return storiesService.getStoryByIdUserToDay(idUser,offset,limit);
     }
 
+    @GetMapping("/main")
+    public List<Stories> getStoryByIdUser(@RequestParam Long idUser,@RequestParam Integer offset,
+                                              @RequestParam Integer limit) {
+        return storiesService.getStoryByIdUser(idUser,offset,limit);
+    }
+
 }

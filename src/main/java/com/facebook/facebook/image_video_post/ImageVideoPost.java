@@ -26,7 +26,7 @@ public class ImageVideoPost {
     String src;
 
     @Column
-    String typeImageVideoPost;
+    Integer typeImageVideoPost;
 
     @Column
     Timestamp timeCreated;

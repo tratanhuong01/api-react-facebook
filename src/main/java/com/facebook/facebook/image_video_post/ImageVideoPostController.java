@@ -3,6 +3,8 @@ package com.facebook.facebook.image_video_post;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/imageVideoPosts")
@@ -29,5 +31,10 @@ public class ImageVideoPostController {
         imageVideoPostService.deleteImageVideoPost(imageVideoPost);
     }
 
+    @GetMapping("")
+    public List<ImageVideoPost> getImageVideoPostByIdUser(@RequestParam Long idUser,@RequestParam Integer offset,
+                                                          @RequestParam Integer limit,@RequestParam Integer type) {
+        return imageVideoPostService.getImageVideoPostByIdUser(idUser,offset,limit,type);
+    }
 
 }

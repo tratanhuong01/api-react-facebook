@@ -1,6 +1,7 @@
 package com.facebook.facebook.messages;
 
 import com.facebook.facebook.dto.MessageByGroup;
+import com.facebook.facebook.dto.UpdateNickname;
 import com.facebook.facebook.users.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -50,5 +51,9 @@ public class MessagesController {
         return messagesService.getUserByGroupMessage(idUser,groupMessage);
     }
 
+    @PostMapping("/update/nickname")
+    public int updateNicknameUser(@RequestBody UpdateNickname updateNickname) {
+        return messagesService.updateNickname(updateNickname);
+    }
 
 }

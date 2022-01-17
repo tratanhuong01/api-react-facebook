@@ -1,6 +1,7 @@
 package com.facebook.facebook.messages;
 
 import com.facebook.facebook.dto.MessageByGroup;
+import com.facebook.facebook.dto.UpdateNickname;
 import com.facebook.facebook.group_message.GroupMessage;
 import com.facebook.facebook.group_message.GroupMessageRepository;
 import com.facebook.facebook.users.Users;
@@ -79,6 +80,11 @@ public class MessagesService {
             }
         }
         return usersList;
+    }
+
+    public int updateNickname(UpdateNickname updateNickname) {
+        return messagesRepository.updateNickNameUser(updateNickname.getContent(),updateNickname.getIdGroupMessage(),
+                updateNickname.getIdUser(),updateNickname.getTypeMessage());
     }
 
 }

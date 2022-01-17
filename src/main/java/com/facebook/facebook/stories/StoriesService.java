@@ -55,4 +55,13 @@ public class StoriesService {
         return storyDetail;
     }
 
+    public List<Stories> getStoryByIdUser(Long idUser,Integer offset,Integer limit) {
+        List<Stories> storiesList;
+        if (offset == null || limit == null)
+            storiesList = storiesRepository.getStoryByIdUser(idUser);
+        else
+            storiesList = storiesRepository.getStoryByIdUser(idUser, offset, limit);
+        return storiesList;
+    }
+
 }
