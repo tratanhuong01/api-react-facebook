@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,5 +34,11 @@ public interface UserRelationshipRepository extends JpaRepository<UserRelationsh
             " offset ?3 limit ?4 ",nativeQuery = true)
     List<UserRelationship> getFriendByUserProfile(Long idUserMain,Integer status,Integer offset,
                                                   Integer limit);
-
+    @Query(value = "SELECT user_relationship.* FROM user_relationship INNER JOIN users ON user_relationship.id_user " +
+            " = users.id WHERE user_relationship.id_friend = :idUserMain AND user_relationship.status = :status AND " +
+            " LOWER(CONCAT(users.first_name,' ',users.last_name)) LIKE LOWER(CONCAT('%',:text,'%')) " +
+            " offset :offset limit :limit ",nativeQuery = true)
+    List<UserRelationship> getFriendByUserProfile(@Param("idUserMain") Long idUserMain,@Param("status") Integer status,
+                                                  @Param("text") String text,@Param("offset") Integer offset,
+                                                  @Param("limit") Integer limit);
 }

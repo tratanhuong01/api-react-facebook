@@ -16,5 +16,4 @@ public class MessageByGroup {
     List<Users> usersList;
     GroupMessage groupMessage;
     Messages messages;
-
 }

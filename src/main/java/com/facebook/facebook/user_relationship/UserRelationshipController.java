@@ -42,7 +42,8 @@ public class UserRelationshipController {
 
     @GetMapping("/friends")
     public List<UserRelationship> getFriendByUserProfile(@RequestParam Long idUserMain,@RequestParam Integer status,
-                                                         @RequestParam Integer limit, @RequestParam Integer offset) {
-        return userRelationshipService.getFriendByUserProfile(idUserMain,status,offset,limit);
+                                                         @RequestParam Integer limit, @RequestParam Integer offset,
+                                                         @RequestParam String text) {
+        return userRelationshipService.getFriendByUserProfile(idUserMain,status,offset,limit,text);
     }
 }

@@ -37,9 +37,13 @@ public class UserRelationshipService {
 
 
     public List<UserRelationship> getFriendByUserProfile(Long idUserMain,Integer status,
-                                                         Integer offset,Integer limit) {
-        return userRelationshipRepository.getFriendByUserProfile(idUserMain,status,
-                offset,limit);
+                                                         Integer offset,Integer limit,String text) {
+       if (text == null)
+           return userRelationshipRepository.getFriendByUserProfile(idUserMain,status,
+                   offset,limit);
+       else
+           return userRelationshipRepository.getFriendByUserProfile(idUserMain,status,text,
+                   offset,limit);
     }
 
 
