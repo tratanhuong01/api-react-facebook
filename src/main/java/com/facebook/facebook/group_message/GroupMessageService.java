@@ -32,4 +32,9 @@ public class GroupMessageService {
         return groupMessageRepository.getGroupMessage(queryGroupMessage);
     }
 
+    public GroupMessage getGroupMessageType(String queryGroupMessage) {
+        return groupMessageRepository.getGroupMessageType(Long.parseLong(queryGroupMessage));
+    }
+
+
 }

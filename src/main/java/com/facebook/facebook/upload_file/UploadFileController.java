@@ -27,8 +27,7 @@ public class UploadFileController {
     public ResponseEntity<Map> updateImage(@RequestParam(required = false) String id,
                                            @RequestParam(required = false) String typeFile,
     @RequestParam(required = false) MultipartFile multipartFile,
-    @RequestParam(required = false) String publicId,
-    @RequestParam(required = false) String base64) throws IOException {
+    @RequestParam(required = false) String publicId) throws IOException {
         UploadFile uploadFile = new UploadFile();
         uploadFile.setId(id);
         uploadFile.setMultipartFile(multipartFile);

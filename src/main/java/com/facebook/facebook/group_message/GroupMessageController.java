@@ -35,4 +35,9 @@ public class GroupMessageController {
         return groupMessageService.getGroupMessage(stringPass.getString());
     }
 
+    @PostMapping("/check/0")
+    public GroupMessage getGroupMessageType(@RequestBody StringPass stringPass) {
+        return groupMessageService.getGroupMessageType(stringPass.getString());
+    }
+
 }

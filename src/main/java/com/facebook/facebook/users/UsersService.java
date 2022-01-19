@@ -79,4 +79,8 @@ public class UsersService {
         return usersRepository.getUserFriendOnlineByIdUser(idUser,offset,limit);
     }
 
+    public List<Users> getTintUserByIdUser(Long idUser,Long idView) {
+        return usersRepository.getTintUserByIdUser(idUser,idView);
+    }
+
 }

@@ -23,4 +23,8 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
             " OFFSET ?2 LIMIT ?3 ",nativeQuery = true)
     List<Users> getUserFriendOnlineByIdUser(Long idUser,Integer offset,Integer limit);
 
+    @Query(value = "SELECT * FROM users WHERE users.id NOT IN " +
+            " (SELECT id_user FROM user_relationship WHERE id_user = ?1 GROUP BY id_user) " +
+            " AND id != ?1 AND id != ?2 OFFSET 0 LIMIT 10",nativeQuery = true)
+    List<Users> getTintUserByIdUser(Long idUser,Long idView);
 }

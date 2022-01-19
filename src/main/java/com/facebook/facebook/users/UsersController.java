@@ -65,4 +65,9 @@ public class UsersController {
         return usersService.getUserFriendOnlineByIdUser(idUser,offset,limit);
     }
 
+    @GetMapping("/tint")
+    public List<Users> getTintUserByIdUser(@RequestParam Long idUser,@RequestParam Long idView) {
+        return usersService.getTintUserByIdUser(idUser,idView);
+    }
+
 }
