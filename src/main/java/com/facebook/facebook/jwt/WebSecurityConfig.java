@@ -32,7 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.PUT,"/users").permitAll()
 
 
-        .antMatchers(HttpMethod.GET, "/users").permitAll()
+        .antMatchers(HttpMethod.GET, "/users/token","/users/id").permitAll()
         .anyRequest().authenticated()
         .and()
         .addFilterBefore(new JWTFilter(), UsernamePasswordAuthenticationFilter.class)

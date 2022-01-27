@@ -19,9 +19,14 @@ public class UsersController {
     UsersService usersService;
     //
 
-    @GetMapping("")
-    public Users getUserByIdOrToken(@RequestParam(required = false) Long id,@RequestParam(required = false) String token) {
-        return usersService.getUserByIdOrToken(id,token);
+    @GetMapping("/id")
+    public Users getUserById(@RequestParam(required = false) Long id) {
+        return usersService.getUserById(id);
+    }
+
+    @GetMapping("/token")
+    public UserDetail getUserByToken(@RequestParam(required = false) String token) {
+        return usersService.getUserByToken(token);
     }
 
     @PostMapping("")

@@ -19,15 +19,19 @@ public class UsersService {
     UsersRepository usersRepository;
     //
 
-    public Users getUserByIdOrToken(Long id,String token) {
-        Users users = null;
-        if (id != null && token == null) {
-            users = usersRepository.getUserById(id);
+    public Users getUserById(Long id) {
+        return usersRepository.getUserById(id);
+    }
+
+    public UserDetail getUserByToken(String token) {
+        Users users = usersRepository.getUserById(Long.parseLong(TokenJWTUtils.parseTokenJWT(token)));
+        UserDetail userDetail = null;
+        if (users != null) {
+            userDetail = new UserDetail();
+            userDetail.setUsers(users);
+            userDetail.setToken(TokenJWTUtils.generateJwt(String.valueOf(users.getId())));
         }
-        else {
-            users = usersRepository.getUserById(Long.parseLong(TokenJWTUtils.parseTokenJWT(token)));
-        }
-        return users;
+        return userDetail;
     }
 
     public Users addUser(Users users) {
