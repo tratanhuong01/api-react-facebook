@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpbDataSourceConfig">
+    <data-sources>
+      <data-source id="e5b017aa-dc3e-4444-a3a6-62049b5113d3" name="api-react-facebook" url="jdbc:postgresql://localhost/db_facebook" driverClass="org.postgresql.Driver" />
+    </data-sources>
+  </component>
+</project>
