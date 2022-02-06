@@ -11,5 +11,6 @@ public class UserDetail {
 
     Users users;
     String token;
+    Integer status;
 
 }

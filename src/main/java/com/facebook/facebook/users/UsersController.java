@@ -29,6 +29,17 @@ public class UsersController {
         return usersService.getUserByToken(token);
     }
 
+    @GetMapping("/search")
+    public UserDetail searchUserByEmailOrPhone(@RequestParam String keyword) {
+        return usersService.searchUserByEmailOrPhone(keyword);
+    }
+
+    @GetMapping("/search/list")
+    public List<Users> searchUser(@RequestParam String keyword,@RequestParam Integer offset,
+                                  @RequestParam Integer limit) {
+        return usersService.searchUser(keyword,offset,limit);
+    }
+
     @PostMapping("")
     public Users addUser(@RequestBody Users users) {
         return usersService.addUser(users);

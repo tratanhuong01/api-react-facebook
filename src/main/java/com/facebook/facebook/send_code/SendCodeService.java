@@ -28,11 +28,16 @@ public class SendCodeService {
     public Integer sendCodePhone(String phone) {
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
         Integer code = randomNumber();
-        Message message = Message.creator(
-                        new com.twilio.type.PhoneNumber(phone),
-                        new com.twilio.type.PhoneNumber("+17163254968"),
-                        code.toString())
-                .create();
+        try {
+            Message message = Message.creator(
+                            new com.twilio.type.PhoneNumber(phone),
+                            new com.twilio.type.PhoneNumber("+17163254968"),
+                            code.toString())
+                    .create();
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
         return code;
     }
 

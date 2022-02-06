@@ -25,13 +25,27 @@ public class UsersService {
 
     public UserDetail getUserByToken(String token) {
         Users users = usersRepository.getUserById(Long.parseLong(TokenJWTUtils.parseTokenJWT(token)));
+        return returnUserDetail(users);
+    }
+    public UserDetail returnUserDetail(Users users) {
         UserDetail userDetail = null;
         if (users != null) {
             userDetail = new UserDetail();
             userDetail.setUsers(users);
             userDetail.setToken(TokenJWTUtils.generateJwt(String.valueOf(users.getId())));
+            if (users.getCodeEmail() == null && users.getCodePhone() == null) {
+                userDetail.setStatus(1);
+            }
         }
         return userDetail;
+    }
+    public UserDetail searchUserByEmailOrPhone(String keyword) {
+        Users users = usersRepository.searchUserByEmailOrPhone(keyword);
+        return returnUserDetail(users);
+    }
+
+    public List<Users> searchUser(String keyword,Integer offset,Integer limit) {
+        return usersRepository.searchUser(keyword,offset,limit);
     }
 
     public Users addUser(Users users) {
@@ -75,6 +89,9 @@ public class UsersService {
             userDetail = new UserDetail();
             userDetail.setUsers(users);
             userDetail.setToken(TokenJWTUtils.generateJwt(String.valueOf(users.getId())));
+            if (users.getCodePhone() == null && users.getCodeEmail() == null) {
+                userDetail.setStatus(1);
+            }
         }
         return userDetail;
     }

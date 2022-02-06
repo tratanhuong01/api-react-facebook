@@ -2,6 +2,7 @@ package com.facebook.facebook.users;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +16,8 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
     @Query(value = "SELECT * FROM users WHERE id = ?1 ",nativeQuery = true)
     Users getUserById(Long id);
 
-    @Query(value = "SELECT * FROM users WHERE (email = ?1 OR phone = ?1 ) AND password = ?2 ",nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE (email = ?1 OR phone = ?1 ) AND password = ?2 ",
+            nativeQuery = true)
     Users checkLogin(String emailOrPhone,String password);
 
     @Query(value = "SELECT users.* FROM users INNER JOIN user_relationship ON users.id = user_relationship.id_user " +
@@ -27,4 +29,13 @@ public interface UsersRepository extends JpaRepository<Users,Long> {
             " (SELECT id_user FROM user_relationship WHERE id_user = ?1 GROUP BY id_user) " +
             " AND id != ?1 AND id != ?2 OFFSET 0 LIMIT 10",nativeQuery = true)
     List<Users> getTintUserByIdUser(Long idUser,Long idView);
+
+    @Query(value = "SELECT * FROM users WHERE email LIKE LOWER(CONCAT('%',:keyword,'%')) OR " +
+            "phone LIKE LOWER(CONCAT('%',:keyword,'%')) OFFSET 0 LIMIT 1",nativeQuery = true)
+    Users searchUserByEmailOrPhone(@Param("keyword") String keyword);
+
+    @Query(value = "SELECT * FROM users WHERE LOWER(CONCAT(users.first_name,' ',users.last_name)) LIKE " +
+            " LOWER(CONCAT('%',:keyword,'%')) OFFSET :offset LIMIT :limit" ,nativeQuery = true)
+    List<Users> searchUser(String keyword,Integer offset,Integer limit);
+
 }
