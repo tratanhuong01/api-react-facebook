@@ -46,4 +46,11 @@ public class UserRelationshipController {
                                                          @RequestParam String text) {
         return userRelationshipService.getFriendByUserProfile(idUserMain,status,offset,limit,text);
     }
+
+    @GetMapping("/invite")
+    public List<UserRelationship> getInviteFriendByIdUser(@RequestParam Long idUser,@RequestParam Integer offset,
+                                                          @RequestParam Integer limit) {
+        return userRelationshipService.getInviteFriendByIdUser(idUser,offset,limit);
+    }
+
 }

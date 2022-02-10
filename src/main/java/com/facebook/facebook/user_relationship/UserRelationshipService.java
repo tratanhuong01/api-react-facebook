@@ -16,7 +16,7 @@ public class UserRelationshipService {
     UserRelationshipRepository userRelationshipRepository;
     //
 
-    // 0 -> sent invite , 1 -> receive invite , 2 -> ís friend
+    // 1 -> sent invite , 2 -> receive invite , 3 -> ís friend
 
     public UserRelationship addUserRelationship(UserRelationship userRelationship) {
         userRelationship.setTimeCreated(new Timestamp(new Date().getTime()));
@@ -35,7 +35,6 @@ public class UserRelationshipService {
         return userRelationshipRepository.checkRelationship(idUserMain,idUserProfile);
     }
 
-
     public List<UserRelationship> getFriendByUserProfile(Long idUserMain,Integer status,
                                                          Integer offset,Integer limit,String text) {
        if (text == null)
@@ -46,5 +45,8 @@ public class UserRelationshipService {
                    offset,limit);
     }
 
+    public List<UserRelationship> getInviteFriendByIdUser(Long idUser,Integer offset,Integer limit) {
+        return userRelationshipRepository.getInviteFriendByIdUser(idUser,offset,limit);
+    }
 
 }

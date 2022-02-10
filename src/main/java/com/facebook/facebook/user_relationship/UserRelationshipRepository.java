@@ -41,4 +41,8 @@ public interface UserRelationshipRepository extends JpaRepository<UserRelationsh
     List<UserRelationship> getFriendByUserProfile(@Param("idUserMain") Long idUserMain,@Param("status") Integer status,
                                                   @Param("text") String text,@Param("offset") Integer offset,
                                                   @Param("limit") Integer limit);
+    @Query(value = "SELECT user_relationship.* FROM user_relationship WHERE id_friend = ?1 " +
+            " AND status = 1 ORDER BY time_created DESC OFFSET ?2 LIMIT ?3 ",nativeQuery = true)
+    List<UserRelationship> getInviteFriendByIdUser(Long idUser,Integer offset,Integer limit);
+
 }
