@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 @CrossOrigin("*")
 @RestController
@@ -16,6 +17,11 @@ public class FeelPostController {
     @Autowired
     FeelPostService feelPostService;
     //
+
+    @GetMapping("")
+    public List<FeelPost> getFeelPostByIdPost(@RequestParam Long idPost) {
+        return feelPostService.feelPostRepository.getFeelPostByIdPost(idPost);
+    }
 
     @PostMapping("")
     public FeelPost addFeelPost(@RequestBody FeelPost feelPost) {
