@@ -45,8 +45,8 @@ public class PostsController {
     }
 
     @DeleteMapping("")
-    public void deletePost(@RequestBody Posts posts) {
-        postsService.deletePost(posts);
+    public void deletePost(@RequestParam Long idPost) {
+        postsService.deletePost(idPost);
     }
 
 

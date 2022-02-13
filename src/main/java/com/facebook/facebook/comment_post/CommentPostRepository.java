@@ -1,8 +1,10 @@
 package com.facebook.facebook.comment_post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,5 +29,19 @@ public interface CommentPostRepository extends JpaRepository<CommentPost,Long> {
     @Query(value = "SELECT COUNT(*) FROM comment_post WHERE reply_comment = ?1 ",nativeQuery = true)
     Integer getCommentPostLevel2Length(Long idComment);
 
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM comment_post WHERE id_post = ?1 ",nativeQuery = true)
+    Integer deleteCommentPostByIdPost(Long idPost);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM comment_post WHERE id = ?1 ",nativeQuery = true)
+    Integer deleteCommentPostByIdCommentPost(Long idCommentPost);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM comment_post WHERE reply_comment = ?1 ",nativeQuery = true)
+    Integer deleteReplyCommentPostByIdCommentPost(Long idCommentPost);
 
 }

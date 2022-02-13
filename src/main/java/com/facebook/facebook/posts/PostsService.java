@@ -45,8 +45,14 @@ public class PostsService {
         return postsRepository.save(posts);
     }
 
-    public void deletePost(Posts posts) {
-        postsRepository.delete(posts);
+    public void deletePost(Long idPost) {
+        feelPostRepository.deleteFeelPostByIdPost(idPost);
+        tagsPostRepository.deleteTagsPostByIdPost(idPost);
+        feelCommentRepository.deleteFeelCommentBYIdPost(idPost);
+        feelCommentRepository.deleteReplyFeelCommentBYIdPost(idPost);
+        commentPostRepository.deleteCommentPostByIdPost(idPost);
+        imageVideoPostRepository.deleteImageVideoPostByIdPost(idPost);
+        postsRepository.deletePostById(idPost);
     }
 
     public List<PostDetail> getPostsByIdUser(Long idUser, Integer offset, Integer limit) {

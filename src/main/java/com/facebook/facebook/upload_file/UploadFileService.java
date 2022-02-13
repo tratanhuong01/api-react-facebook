@@ -1,6 +1,7 @@
 package com.facebook.facebook.upload_file;
 
 import com.cloudinary.Cloudinary;
+import com.cloudinary.Transformation;
 import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,6 +36,14 @@ public class UploadFileService {
         ));
         file.delete();
         return result;
+    }
+
+    public void deleteFile(UploadFile uploadFile) throws IOException {
+        cloudinary.uploader().destroy("Avatars/1644752768557.jpg",ObjectUtils.asMap(
+                "public_id", "Avatars/1644752768557.jpg",
+                "overwrite", true,
+                "resource_type", "image"
+        ));
     }
 
     public Map uploadBase64(UploadBase64 uploadBase64) throws IOException {

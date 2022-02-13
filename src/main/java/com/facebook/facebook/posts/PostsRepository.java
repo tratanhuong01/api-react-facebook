@@ -1,8 +1,10 @@
 package com.facebook.facebook.posts;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -22,5 +24,10 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
             " user_relationship ON user_relationship.id_user = users.id WHERE user_relationship.id_friend = ?1 " +
             " AND user_relationship.status = 3 ORDER BY posts.time_created DESC OFFSET ?2 LIMIT ?3  ",nativeQuery = true)
     List<Posts> getPostHome(Long id,Integer offset,Integer limit);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM posts WHERE id = ?1 ",nativeQuery = true)
+    Integer deletePostById(Long idPost);
 
 }

@@ -32,8 +32,8 @@ public class CommentPostController {
     }
 
     @DeleteMapping("")
-    public void deleteCommentPost(@RequestBody CommentPost commentPost) {
-        commentPostService.deleteCommentPost(commentPost);
+    public void deleteCommentPost(@RequestParam Long idCommentPost) {
+        commentPostService.deleteCommentPost(idCommentPost);
     }
 
     @GetMapping("/level1")

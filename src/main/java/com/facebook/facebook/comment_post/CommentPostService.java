@@ -32,8 +32,11 @@ public class CommentPostService {
         return commentPostRepository.save(commentPost);
     }
 
-    public void deleteCommentPost(CommentPost commentPost) {
-        commentPostRepository.delete(commentPost);
+    public void deleteCommentPost(Long idCommentPost) {
+        feelCommentRepository.deleteFeelCommentBYIdCommentPost(idCommentPost);
+        feelCommentRepository.deleteReplyFeelCommentBYIdCommentPost(idCommentPost);
+        commentPostRepository.deleteReplyCommentPostByIdCommentPost(idCommentPost);
+        commentPostRepository.deleteCommentPostByIdCommentPost(idCommentPost);
     }
 
     public List<CommentDetail> getCommentLevel1ByIdPost(Long idPost,Integer offset,Integer limit) {

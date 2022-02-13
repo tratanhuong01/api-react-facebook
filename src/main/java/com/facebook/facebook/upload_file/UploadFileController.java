@@ -37,6 +37,19 @@ public class UploadFileController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
+    @PostMapping("deleteFile")
+    public void deleteFile(@RequestParam(required = false) String id,
+                                           @RequestParam(required = false) String typeFile,
+                                           @RequestParam(required = false) MultipartFile multipartFile,
+                                           @RequestParam(required = false) String publicId) throws IOException {
+        UploadFile uploadFile = new UploadFile();
+        uploadFile.setId(id);
+        uploadFile.setMultipartFile(multipartFile);
+        uploadFile.setTypeFile(typeFile);
+        uploadFile.setPublicId(publicId);
+        uploadFileService.deleteFile(uploadFile);
+    }
+
     @PostMapping("uploadBase64")
     public ResponseEntity<Map> uploadBase64(@RequestParam(required = false) String id,
                                            @RequestParam(required = false) String typeFile,

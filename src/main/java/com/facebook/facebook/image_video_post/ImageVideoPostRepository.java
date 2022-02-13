@@ -1,8 +1,10 @@
 package com.facebook.facebook.image_video_post;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -32,5 +34,10 @@ public interface ImageVideoPostRepository extends JpaRepository<ImageVideoPost,L
             " image_video_post.id_post WHERE posts.id_user = ?1 AND image_video_post.type_image_video_post = ?2 " +
             " ORDER BY posts.time_created DESC OFFSET ?3 LIMIT ?4 ",nativeQuery = true)
     List<ImageVideoPost> getImageVideoPostByIdUserLimit(Long idUser,Integer type,Integer offset,Integer limit);
+
+    @Transactional
+    @Modifying
+    @Query(value = "DELETE FROM image_video_post WHERE id_post = ?1 ",nativeQuery = true)
+    Integer deleteImageVideoPostByIdPost(Long idPost);
 
 }
