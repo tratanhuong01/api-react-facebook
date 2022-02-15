@@ -49,6 +49,8 @@ public class PostsController {
         postsService.deletePost(idPost);
     }
 
-
-
+    @GetMapping("/watch")
+    public List<PostDetail> getWatchHome(@RequestParam Integer offset,@RequestParam Integer limit) {
+        return postsService.getWatchPost(offset, limit);
+    }
 }

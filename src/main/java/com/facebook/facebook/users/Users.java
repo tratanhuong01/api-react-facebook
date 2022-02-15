@@ -66,4 +66,7 @@ public class Users {
     @Column
     Timestamp timeCreated;
 
+    @Column
+    String favorites;
+
 }

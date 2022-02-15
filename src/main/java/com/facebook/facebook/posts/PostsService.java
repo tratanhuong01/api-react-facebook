@@ -120,4 +120,13 @@ public class PostsService {
         return postDetailList;
     }
 
+    public List<PostDetail> getWatchPost(Integer offset,Integer limit) {
+        List<Posts> postsList = postsRepository.getWatchPost(offset,limit);
+        List<PostDetail> postDetailList = new ArrayList<>();
+        for (Posts post : postsList) {
+            postDetailList.add(returnPostDetail(post));
+        }
+        return postDetailList;
+    }
+
 }

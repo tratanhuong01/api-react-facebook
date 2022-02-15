@@ -30,4 +30,9 @@ public interface PostsRepository extends JpaRepository<Posts,Long> {
     @Query(value = "DELETE FROM posts WHERE id = ?1 ",nativeQuery = true)
     Integer deletePostById(Long idPost);
 
+    @Query(value = "SELECT posts.* FROM posts INNER JOIN image_video_post ON posts.id = " +
+            " image_video_post.id_post WHERE image_video_post.type_image_video_post = 1 " +
+            " ORDER BY image_video_post.time_created DESC OFFSET ?1 LIMIT ?2 ",nativeQuery = true)
+    List<Posts> getWatchPost(Integer offset,Integer limit);
+
 }
